@@ -7,12 +7,15 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
 import edu.wpi.first.wpilibj.Solenoid;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -21,10 +24,16 @@ public class ClimberSubsystem extends SubsystemBase {
   private Solenoid climberBrake;
   private CANSparkMax climberMotor;
   private CANEncoder climberEncoder;
+  private VictorSPX crawlerMotor;
 
-  private ClimberSubsystem() {
-    climberMotor = new CANSparkMax(Constants.Ports.climberMotorPort, MotorType.kBrushless);
-    climberBrake = new Solenoid(Constants.Ports.climberBrakePort);
+  public ClimberSubsystem() {
+    climberMotor = new CANSparkMax(Constants.Ports.CLIMBER_MOTOR, MotorType.kBrushless);
+    crawlerMotor = new VictorSPX(Constants.Ports.CRAWLER_MOTOR);
+    climberBrake = new Solenoid(Constants.Ports.CLIMBER_BRAKE);
+
+    crawlerMotor.configFactoryDefault(10);
+    crawlerMotor.setNeutralMode(NeutralMode.Brake);
+    crawlerMotor.setInverted(false);
 
     climberEncoder = climberMotor.getEncoder();
 
@@ -32,28 +41,45 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMotor.setIdleMode(IdleMode.kBrake);
   }
 
-  public void ExtendPiston(){
+  public void extendPiston(){
     climberBrake.set(false);
   }
 
-  public void RetractPiston(){
+  public void retractPiston(){
     climberBrake.set(true);
   }
 
-  public void setBrake() {
+  public void setMotorBrake() {
     climberMotor.setIdleMode(IdleMode.kBrake);
   }
 
-  public void setCoast() {
+  public void setMotorCoast() {
     climberMotor.setIdleMode(IdleMode.kCoast);
   }
 
-  public void setSpeed(double speed){
+  public void setMotorSpeed(double speed){
+    if (!climberBrake.get()) {
+      climberBrake.set(true);
+    }
     climberMotor.set(speed);
   }
 
+  public void setCrawlSpeed(double speed){
+    crawlerMotor.set(ControlMode.PercentOutput, speed);
+  }
+
+  /*
+   * number of encoder tics on the Neo
+   */
   public double getEncoder() {
     return climberEncoder.getPosition();
+  }
+
+  /*
+   * return the height of the climber
+   */
+  public double getHeight() {
+    return getEncoder() * Constants.Values.CLIMBER_HEIGHT_REVS_TO_HEIGHT + Constants.Values.CLIMBER_HEIGHT_OFFSET;
   }
 
   @Override
@@ -62,10 +88,10 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void updateSmartDashboard() {
-    SmartDashboard.putNumber("Climber/Encoder value", getEncoder());
+    SmartDashboard.putNumber("Climber/Encoder hright", getHeight());
   }
 
-  public static ClimberSubsystem instance;
+  private static ClimberSubsystem instance;
   public static ClimberSubsystem getInstance(){
     if (instance == null){
       instance = new ClimberSubsystem();

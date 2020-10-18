@@ -11,144 +11,104 @@ import frc.robot.util.Gains;
 
 public final class Constants {
 
-
   public static boolean eps(double a, double b, double eps) {
     return Math.abs(a - b) < eps;
   }
-  
+
   public static class Ports {
 
-    public static final int
+    public static final int SHOOTER_MOTOR_1 = 8; // CAN
+    public static final int SHOOTER_MOTOR_2 = 9; // CAN
+    public static final int SHOOTER_IR = 1; // DIO
+    public static final int OVERFLOW_IR = 2; // DIO
+ 
+    public static final int INTAKE_MOTOR_2 = 11;
+    public static final int INTAKE_SOLENOID = 3;
+    public static final int INTAKE_MOTOR_1 = 7; 
+    public static final int INTAKE_IR = 0;
 
-      SHOOTER_MOTOR_1 = 8,
-      SHOOTER_MOTOR_2 = 9,
+    // Hopper things
+    public static final int HOPPER_MOTOR_TOP = 6;
+    public static final int HOPPER_MOTOR_BOTTOM = 5;
 
-      INTAKE_MOTOR_1 = 7,
-      INTAKE_MOTOR_2 = 11,
-      INTAKE_SOLENOID = 3,
+    // Drivetrain things
+    public static final int ULTRASONIC_CHANNEL = 4;
 
-      //Hopper things
-      HOPPER_MOTOR_TOP = 6,
-      HOPPER_MOTOR_BOTTOM = 5,
+    // climber things
+    public static final int CLIMBER_MOTOR = 10;
+    public static final int CRAWLER_MOTOR = 11;
+    public static final int CLIMBER_BRAKE = 16;
 
-      INTAKE_IR = 0,
-      SHOOTER_IR = 1,
-      OVERFLOW_IR = 2,
-
-      //Drivetrain things
-      ultrasonicChannel = 4,
-
-      //climber things
-      climberMotorPort = 10,
-      climberBrakePort = 2,
-
-      //LEDs
-      LEDPORT = 9,
-      LEDCOUNT = 35,
-
-      __end_of_ports__ = 0;
-      
-    public static final int[]
-
-      AZIMUTH_PORTS = {
-        12, 13, 14, 15
-      },
-
-      DRIVE_PORTS = {
-        1, 2, 3, 4
-      },
-
-      MODULE_ENCODERS = {
-        0, 1, 2, 3
-      };
+    // Swerve Drive Module configuration
+    protected static final int[] AZIMUTH_PORTS = { 12, 13, 14, 15 };
+    protected static final int[] DRIVE_PORTS = { 1, 2, 3, 4 };
+    protected static final int[] MODULE_ENCODERS = { 0, 1, 2, 3 };
   }
 
-  public static class Values {     
+  public static class Values {
+    public static final double WHEEL_BASE = 22.0;
+    public static final double TRACK_WIDTH = 12.0;
+    public static final double VOLTAGE_TO_FEET = (12 * 0.0098); // 9.8mV per inch with a 5V input. For ultrasonic.
+    public static final double VISION_ANGLE_TOLERANCE = 1.5;
+    public static final double VISION_DRIVE_P = 0.000025;
+    public static final double VISION_DRIVE_I = 0.00006; 
+    public static final double VISION_DRIVE_D = 0.00003;
+    public static final double ACCELERATION = 2.5; // Percentage / Seconds
+    public static final double VISION_TURNING_P = 0.025; // 0.04
+    public static final double VISION_TURNING_I = 0.06;
+    public static final double VISION_TURNING_D = 0.07;
+    public static final double VISION_TOLERANCE = 1.5;
+    public static final double VISION_TIMEOUT = 2000; // in ms
+    public static final double VISION_LIMELIGHT_HEIGHT = 40; // Height (inches) up from the ground of the center of the limelight.
+    public static final double VISION_LIMELIGHT_ANGLE = 30; // Math.atan(2.5/1.75) * (180 / Math.PI), //angle the limelight is tilted at. In
+                                                            // degrees up from the floor.
+    public static final double INTAKE_IN = 0.6; // 0.75 // percent speed to intake
+    public static final double INTAKE_EJECT = -0.5; // percent speed to outtake
+    public static final double INTAKE_EXTEND_DELAY = 0.2; // seconds
+    public static final double HOPPER_HANDOFF_DELAY = 0.0; // 0.13 // 0.13 * (speed / 0.75)
+    public static final double HOPPER_HANDOFF_ROLL_TIME = 0.68;
+    public static final double HOPPER_INTAKE_SPEED = 0.4; 
+    public static final double HOPPER_STREAM_SPEED = 1; 
+    public static final double HOPPER_EJECT_SPEED = -0.4;
+    public static final double HOPPER_INTAKE_IR_DELAY = 0; // ms
+    public static final double HOPPER_SHOOTER_IR_DELAY = 20; // ms
+    public static final double SHOOTER_GEARING = 3.0 / 4.0;
+    public static final double SHOOTER_RPM = 3700;
+    public static final double SHOOTER_CIRCUMFERENCE_CM = (10.16 * Math.PI); // cm
+    public static final double SHOOTER_RELEASE_ANGLE = 80; // degrees up from horizontal
+    public static final double SHOOTER_RELEASE_HEIGHT = 1.0612121212; // meters up from ground
+    public static final double CLIMBER_UP = 1;
+    public static final double CLIMBER_DOWN = -1;
+    public static final double CLIMBER_P = 0; 
+    public static final double CLIMBER_I = 0; 
+    public static final double CLIMBER_D = 0;
+    public static final double CLIMBER_HEIGHT_REVS_TO_HEIGHT = 1; 
+    public static final double CLIMBER_HEIGHT_OFFSET = 25; // inches
+    
+    // To Seconds, To RPM Motorside, To RPM Wheelside, To Circumference, To Feet
+    public static final double DRIVE_VEL_2_FEET = 10 * (1.0 / 2048.0) * (9.0 / 70.0) * (4.875 * Math.PI) * (1.0 / 12.0);
 
-    public static final double
+    protected static final double[] MODULE_ZEROS = { 0.0, 0.0, 0.0, 0.0 };
 
-        WHEEL_BASE = 22.0,
-        TRACK_WIDTH = 12.0,
+    public static final Gains DRIVE_VELOCITY_GAINS = new Gains(0.6, 0.012, 6.8, 1023.0 / 21500.0);
+    public static final Gains SHOOTER_VELOCITY_GAINS = new Gains(0.001, 0, 0.005, (1.0 / (4060.0 * (22.0 / 18.0) * 0.5)));
 
-        VOLTAGE_TO_FEET = (12 * 0.0098), //9.8mV per inch with a 5V input. For ultrasonic.
+    protected static final Gains[] DRIVE_GAINS = { 
+      new Gains(0.0, 0.0, 0.0, 0.0), 
+      new Gains(0.0, 0.0, 0.0, 0.0), 
+      new Gains(0.0, 0.0, 0.0, 0.0),
+      new Gains(0.0, 0.0, 0.0, 0.0) 
+    };
 
-        VISION_ANGLE_TOLERANCE = 1.5,
+    protected static final Gains[] AZIMUTH_GAINS = { 
+      new Gains(0.01, 0.0, 0.0, 0.0),
+      new Gains(0.01, 0.0, 0.0, 0.0),
+      new Gains(0.01, 0.0, 0.0, 0.0),
+      new Gains(0.01, 0.0, 0.0, 0.0) 
+    };
 
-        VISION_DRIVE_P = 0.000025,
-        VISION_DRIVE_I = 0.00006,
-        VISION_DRIVE_D = 0.00003,
-
-        ACCELERATION = 2.5, // Percentage / Seconds
-
-        VISION_TURNING_P = 0.025, //0.04
-        VISION_TURNING_I = 0.06,
-        VISION_TURNING_D = 0.07,
-        VISION_TOLERANCE = 1.5,
-        VISION_TIMEOUT = 2000, //in ms
-
-        VISION_LIMELIGHT_HEIGHT = 40, //Height (inches) up from the ground of the center of the limelight. 
-        VISION_LIMELIGHT_ANGLE = 30,//Math.atan(2.5/1.75) * (180 / Math.PI), //angle the limelight is tilted at. In degrees up from the floor.
-
-        INTAKE_IN = 0.6, //0.75 // percent speed to intake
-        INTAKE_EJECT = -0.5, // percent speed to outtake
-        INTAKE_EXTEND_DELAY = 0.2, // seconds
-
-        HOPPER_HANDOFF_DELAY = 0.0, //0.13  // 0.13 * (speed / 0.75)
-        HOPPER_HANDOFF_ROLL_TIME = 0.68,
-        HOPPER_INTAKE_SPEED = 0.4,
-        HOPPER_STREAM_SPEED = 1,
-        HOPPER_EJECT_SPEED = -0.4,
-        HOPPER_INTAKE_IR_DELAY = 0, // ms
-        HOPPER_SHOOTER_IR_DELAY = 20, //ms
-
-        SHOOTER_GEARING = 3.0 / 4.0,
-        SHOOTER_RPM = 3700,
-        SHOOTER_CIRCUMFERENCE_CM = (10.16 * Math.PI), // cm
-        SHOOTER_RELEASE_ANGLE = 80, // degrees up from horizontal
-        SHOOTER_RELEASE_HEIGHT = 1.0612121212, // meters up from ground
-
-        CLIMBER_UP = 1,
-        CLIMBER_DOWN = -1,
-        CLIMBER_P = 0,
-        CLIMBER_I = 0,
-        CLIMBER_D = 0,
-
-        // To Seconds, To RPM Motorside, To RPM Wheelside, To Circumference, To Feet
-        DRIVE_VEL_2_FEET = 10 * (1.0 / 2048.0)
-          * (9.0 / 70.0) * (4.875 * Math.PI) * (1.0 / 12.0);
-
-    public static final double[]
-
-      MODULE_ZEROS = {
-        0.0, 0.0, 0.0, 0.0
-      };
-
-    public static final Gains
-
-      DRIVE_VELOCITY_GAINS = new Gains(0.6, 0.012, 6.8, 1023.0 / 21500.0),
-      SHOOTER_VELOCITY_GAINS = new Gains(0.001, 0, 0.005, (1.0 / (4060.0 * (22.0 / 18.0) * 0.5)));
-
-    public static final Gains[]
-
-      DRIVE_GAINS = {
-        new Gains(0.0, 0.0, 0.0, 0.0),
-        new Gains(0.0, 0.0, 0.0, 0.0),
-        new Gains(0.0, 0.0, 0.0, 0.0),
-        new Gains(0.0, 0.0, 0.0, 0.0)
-      },
-
-      AZIMUTH_GAINS = {
-        new Gains(0.01, 0.0, 0.0, 0.0),
-        new Gains(0.01, 0.0, 0.0, 0.0),
-        new Gains(0.01, 0.0, 0.0, 0.0),
-        new Gains(0.01, 0.0, 0.0, 0.0)
-      };
-      
-    public static final int
-
-      LED_COUNT = 35,
-      LED_WIDTH = 7,
-      LED_ROWS = 5;
-
+    public static final int LED_COUNT = 35;
+    public static final int LED_WIDTH = 7; 
+    public static final int LED_ROWS = 5;
   }
 }

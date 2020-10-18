@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private Command mAutonomousCommand;
 
-  private RobotContainer m_robotContainer;
+  private RobotContainer mRobotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,7 +30,9 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    mRobotContainer = new RobotContainer();
+
+    mAutonomousCommand = null;
   }
 
   /**
@@ -54,10 +56,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    /*
+     * Nothing is done in disabled mode
+     */
   }
 
   @Override
   public void disabledPeriodic() {
+    /*
+     * Nothing is done in disabled mode
+     */
   }
 
   /**
@@ -65,11 +73,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
+    if (mAutonomousCommand != null) {
+      mAutonomousCommand.schedule();
     }
   }
 
@@ -78,6 +84,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    /*
+     * nothing extra to be done in autonomous
+     */
   }
 
   @Override
@@ -86,8 +95,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (mAutonomousCommand != null) {
+      mAutonomousCommand.cancel();
     }
   }
 
@@ -96,6 +105,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    /*
+     * nothing extra to be done in teleoperated
+     */
   }
 
   @Override
@@ -109,5 +121,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    // nothing exta in test mode
   }
 }
