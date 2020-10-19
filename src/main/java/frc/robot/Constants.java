@@ -65,14 +65,15 @@ public final class Constants {
     public static final double INTAKE_IN = 0.6; // 0.75 // percent speed to intake
     public static final double INTAKE_EJECT = -0.5; // percent speed to outtake
     public static final double INTAKE_EXTEND_DELAY = 0.2; // seconds
-    public static final double HOPPER_HANDOFF_DELAY = 0.0; // 0.13 // 0.13 * (speed / 0.75)
+    public static final double HOPPER_HANDOFF_DELAY = 0.0; // 0.13 * (speed / 0.75)
     public static final double HOPPER_HANDOFF_ROLL_TIME = 0.68;
     public static final double HOPPER_INTAKE_SPEED = 0.4; 
     public static final double HOPPER_STREAM_SPEED = 1; 
     public static final double HOPPER_EJECT_SPEED = -0.4;
     public static final double HOPPER_INTAKE_IR_DELAY = 0; // ms
     public static final double HOPPER_SHOOTER_IR_DELAY = 20; // ms
-    public static final double SHOOTER_GEARING = 3.0 / 4.0;
+    public static final double SHOOTER_GEARING = 9.0 / 11.0;
+    public static final double SHOOTER_MAX_RPM = 4800; // adjusted for gearing - raw ~5000 rpm
     public static final double SHOOTER_RPM = 3700;
     public static final double SHOOTER_CIRCUMFERENCE_CM = (10.16 * Math.PI); // cm
     public static final double SHOOTER_RELEASE_ANGLE = 80; // degrees up from horizontal
@@ -92,6 +93,7 @@ public final class Constants {
 
     public static final Gains DRIVE_VELOCITY_GAINS = new Gains(0.6, 0.012, 6.8, 1023.0 / 21500.0);
     public static final Gains SHOOTER_VELOCITY_GAINS = new Gains(0.001, 0, 0.005, (1.0 / (4060.0 * (22.0 / 18.0) * 0.5)));
+    public static final Gains REV_SHOOTER_VELOCITY_GAINS = new Gains(5e-5, 1e-6, 0.0, 0.000156);
 
     protected static final Gains[] DRIVE_GAINS = { 
       new Gains(0.0, 0.0, 0.0, 0.0), 
