@@ -10,6 +10,7 @@ package frc.robot.commands.shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.util.Gains;
 
 public class SetShooterSpeed extends CommandBase {
   private double mSpeed = 0.0;
@@ -27,6 +28,7 @@ public class SetShooterSpeed extends CommandBase {
   @Override
   public void initialize() {
     SmartDashboard.putBoolean("Stop", stop);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,6 +45,9 @@ public class SetShooterSpeed extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     ShooterSubsystem.getInstance().goodStop();
+
+    Gains myGains = ShooterSubsystem.getInstance().getGains(); 
+    System.out.println("Shooter: kP=" + myGains.kP + ", kI=" + myGains.kI + ", kD=" + myGains.kD + ", kFF=" + myGains.kF);
   }
 
   // Returns true when the command should end.

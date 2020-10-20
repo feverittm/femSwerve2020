@@ -17,6 +17,7 @@ import com.revrobotics.ControlType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.util.Gains;
 
 public class ShooterSubsystem extends SubsystemBase {
 
@@ -122,6 +123,18 @@ public class ShooterSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("SetPoint", setpoint);
     SmartDashboard.putNumber("ProcessVariable", mEncoder.getVelocity());
     SmartDashboard.putNumber("Controller Output", mMotor1.getAppliedOutput());
+  }
+
+  public Gains getGains() {
+    return new Gains(mController.getP(), mController.getI(), mController.getD(), mController.getFF());
+  }
+
+  public double getSetpoint() {
+    return setpoint;
+  }
+
+  public double getOutput() {
+    return mMotor1.getAppliedOutput();
   }
 
   @Override
