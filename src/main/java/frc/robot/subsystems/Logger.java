@@ -17,13 +17,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Logger extends SubsystemBase {
-
+  private static Logger instance;
   private BufferedWriter writer;
   private boolean logging = true;
-  private static final String SD_FILE_NAME = "File Name: ";
   private long startTime = 0;
   DriverStation ds;
   private File path;
+  private static final String SD_FILE_NAME = "File Name: ";
   private static final String LOGSTRING = "Logging";
   private File basedir = new File("/home/lvuser/spartanlogs");
 
@@ -38,11 +38,28 @@ public class Logger extends SubsystemBase {
     }
   }
 
+  /**
+   * @return File
+   */
   private File openFile() {
     checkPath(basedir);
     return getPath(basedir, getFileIndex(basedir));
   }
 
+  /**
+   * @param path
+   */
+  private void checkPath(File path) {
+    /* check for base directory */
+    if (!path.exists()) {
+      path.mkdir();
+    }
+  }
+
+  /**
+   * @param path
+   * @return int
+   */
   private int getFileIndex(File path) {
     int max = 0;
     File[] files = path.listFiles();
@@ -64,13 +81,6 @@ public class Logger extends SubsystemBase {
     return max;
   }
 
-  private void checkPath(File path) {
-    /* check for base directory */
-    if (!path.exists()) {
-      path.mkdir();
-    }
-  }
-
   /**
    * @return String
    */
@@ -88,6 +98,11 @@ public class Logger extends SubsystemBase {
     return new File(path, fs);
   }
 
+  /**
+   * Write a CSV header into the log file.
+   * 
+   * @param path
+   */
   public void writeFileHeader(File path) {
     if ((wantToLog() || ds.isFMSAttached())) {
       try {
@@ -101,6 +116,9 @@ public class Logger extends SubsystemBase {
     }
   }
 
+  /**
+   * Write a timestamped entry in the log file.
+   */
   public void logAll() {
     String logString = "%.3f";
     double timeSinceStart;
@@ -122,7 +140,7 @@ public class Logger extends SubsystemBase {
   }
 
   /**
-   * getter to grab the status of the smartdashboard entry
+   * getter to grab the logging status from the smartdashboard entry
    * 
    * @return boolean
    */
@@ -146,10 +164,8 @@ public class Logger extends SubsystemBase {
     }
   }
 
-  private static Logger instance;
-
   /**
-   * @return ShooterSubsystem
+   * @return Logger
    */
   public static Logger getInstance() {
     if (instance == null)

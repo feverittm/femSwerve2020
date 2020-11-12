@@ -46,6 +46,7 @@ public final class Constants {
   }
 
   public static class Values {
+    public static final int TIMEOUT_MS = 30;
     public static final double WHEEL_BASE = 22.0;
     public static final double TRACK_WIDTH = 12.0;
     public static final double VOLTAGE_TO_FEET = (12 * 0.0098); // 9.8mV per inch with a 5V input. For ultrasonic.
@@ -94,6 +95,7 @@ public final class Constants {
     public static final Gains DRIVE_VELOCITY_GAINS = new Gains(0.6, 0.012, 6.8, 1023.0 / 21500.0);
     public static final Gains SHOOTER_VELOCITY_GAINS = new Gains(0.001, 0, 0.005, (1.0 / (4060.0 * (22.0 / 18.0) * 0.5)));
     public static final Gains REV_SHOOTER_VELOCITY_GAINS = new Gains(5e-5, 1e-6, 0.0, 0.000156);
+    public static final Gains HOPPER_GAINS = new Gains(1.0, 0.0, 0.0, 0.0);
 
     protected static final Gains[] DRIVE_GAINS = { 
       new Gains(0.0, 0.0, 0.0, 0.0), 
