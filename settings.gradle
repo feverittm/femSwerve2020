@@ -25,3 +25,7 @@ pluginManagement {
         }
     }
 }
+
+include 'robot'
+include 'examples:swerve-robot'
+include 'examples:trajectory-generation'
