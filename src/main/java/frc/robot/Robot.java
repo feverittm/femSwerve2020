@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private final RobotContainer mRobotContainer = new RobotContainer();
-  private final AutonomousBuilder autonomousBuilder = new AutonomousBuilder();
-  private final CommandBase mAutonomousCommand;
+  private final RobotContainer container = new RobotContainer();
+  //private final AutonomousBuilder autonomousBuilder = new AutonomousBuilder();
+  private CommandBase mAutonomousCommand;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -30,9 +30,6 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    mRobotContainer = new RobotContainer();
-
-    mAutonomousCommand = null;
   }
 
   /**
@@ -52,41 +49,14 @@ public class Robot extends TimedRobot {
   }
 
   /**
-   * This function is called once each time the robot enters Disabled mode.
-   */
-  @Override
-  public void disabledInit() {
-    /*
-     * Nothing is done in disabled mode
-     */
-  }
-
-  @Override
-  public void disabledPeriodic() {
-    /*
-     * Nothing is done in disabled mode
-     */
-  }
-
-  /**
    * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
    */
   @Override
   public void autonomousInit() {
     // schedule the autonomous command (example)
     if (mAutonomousCommand != null) {
-      mAutonomousCommand.schedule();
+      mAutonomousCommand.cancel();
     }
-  }
-
-  /**
-   * This function is called periodically during autonomous.
-   */
-  @Override
-  public void autonomousPeriodic() {
-    /*
-     * nothing extra to be done in autonomous
-     */
   }
 
   @Override
@@ -98,29 +68,5 @@ public class Robot extends TimedRobot {
     if (mAutonomousCommand != null) {
       mAutonomousCommand.cancel();
     }
-  }
-
-  /**
-   * This function is called periodically during operator control.
-   */
-  @Override
-  public void teleopPeriodic() {
-    /*
-     * nothing extra to be done in teleoperated
-     */
-  }
-
-  @Override
-  public void testInit() {
-    // Cancels all running commands at the start of test mode.
-    CommandScheduler.getInstance().cancelAll();
-  }
-
-  /**
-   * This function is called periodically during test mode.
-   */
-  @Override
-  public void testPeriodic() {
-    // nothing exta in test mode
   }
 }

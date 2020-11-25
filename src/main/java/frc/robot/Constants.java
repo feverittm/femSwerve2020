@@ -15,7 +15,7 @@ public final class Constants {
     return Math.abs(a - b) < eps;
   }
 
-  public static final int kTimeoutMs = 30;
+
 
   public static class Ports {
 
@@ -96,23 +96,10 @@ public final class Constants {
     protected static final double[] MODULE_ZEROS = { 0.0, 0.0, 0.0, 0.0 };
 
     public static final Gains DRIVE_VELOCITY_GAINS = new Gains(0.6, 0.012, 6.8, 1023.0 / 21500.0);
+    public static final Gains ANGLE_ROTATION_GAINS = new Gains(0.6, 0.012, 6.8, 1023.0 / 21500.0);
     public static final Gains SHOOTER_VELOCITY_GAINS = new Gains(0.001, 0, 0.005, (1.0 / (4060.0 * (22.0 / 18.0) * 0.5)));
     public static final Gains REV_SHOOTER_VELOCITY_GAINS = new Gains(5e-5, 1e-6, 0.0, 0.000156);
     public static final Gains HOPPER_GAINS = new Gains(1.0, 0.0, 0.0, 0.0);
-
-    protected static final Gains[] DRIVE_GAINS = { 
-      new Gains(0.0, 0.0, 0.0, 0.0), 
-      new Gains(0.0, 0.0, 0.0, 0.0), 
-      new Gains(0.0, 0.0, 0.0, 0.0),
-      new Gains(0.0, 0.0, 0.0, 0.0) 
-    };
-
-    protected static final Gains[] AZIMUTH_GAINS = { 
-      new Gains(0.01, 0.0, 0.0, 0.0),
-      new Gains(0.01, 0.0, 0.0, 0.0),
-      new Gains(0.01, 0.0, 0.0, 0.0),
-      new Gains(0.01, 0.0, 0.0, 0.0) 
-    };
 
     public static final int LED_COUNT = 35;
     public static final int LED_WIDTH = 7; 
