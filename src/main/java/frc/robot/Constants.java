@@ -15,6 +15,8 @@ public final class Constants {
     return Math.abs(a - b) < eps;
   }
 
+  public static final int kTimeoutMs = 30;
+
   public static class Ports {
 
     public static final int SHOOTER_MOTOR_1 = 8; // CAN
@@ -50,6 +52,7 @@ public final class Constants {
     public static final double WHEEL_BASE = 22.0;
     public static final double TRACK_WIDTH = 12.0;
     public static final double VOLTAGE_TO_FEET = (12 * 0.0098); // 9.8mV per inch with a 5V input. For ultrasonic.
+    public static final int DRIVE_MOTOR_CURRENT_LIMIT = 25;
     public static final double VISION_ANGLE_TOLERANCE = 1.5;
     public static final double VISION_DRIVE_P = 0.000025;
     public static final double VISION_DRIVE_I = 0.00006; 
