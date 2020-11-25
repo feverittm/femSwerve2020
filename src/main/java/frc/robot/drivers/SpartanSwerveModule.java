@@ -144,6 +144,10 @@ public final class SpartanSwerveModule extends SwerveModule {
         return angle;
     }
 
+    public double getEncoderVoltage() {
+        return angleEncoder.getVoltage();
+    }
+
     /**
      * @return units per second of the drive motor
      */

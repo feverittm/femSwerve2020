@@ -42,12 +42,24 @@ public final class Constants {
     public static final int CLIMBER_BRAKE = 16;
 
     // Swerve Drive Module configuration
-    protected static final int[] AZIMUTH_PORTS = { 12, 13, 14, 15 };
-    protected static final int[] DRIVE_PORTS = { 1, 2, 3, 4 };
-    protected static final int[] MODULE_ENCODERS = { 0, 1, 2, 3 };
+    public static final int FRONT_LEFT_DRIVE_MOTOR_CANID = 1;
+    public static final int FRONT_RIGHT_DRIVE_MOTOR_CANID = 2;
+    public static final int BACK_LEFT_DRIVE_MOTOR_CANID = 3;
+    public static final int BACK_RIGHT_DRIVE_MOTOR_CANID = 4;
+    
+    public static final int FRONT_LEFT_ANGLE_MOTOR_CANID = 5;
+    public static final int FRONT_RIGHT_ANGLE_MOTOR_CANID = 6;
+    public static final int BACK_LEFT_ANGLE_MOTOR_CANID = 7;
+    public static final int BACK_RIGHT_ANGLE_MOTOR_CANID = 8;
+    
+    public static final int FRONT_LEFT_ANGLE_ENCODER_INPUT = 0;
+    public static final int FRONT_RIGHT_ANGLE_ENCODER_INPUT = 1;
+    public static final int BACK_LEFT_ANGLE_ENCODER_INPUT = 2;
+    public static final int BACK_RIGHT_ANGLE_ENCODER_INPUT = 3;
   }
 
   public static class Values {
+    public static final byte NAVX_UPDATE_RATE = 50;
     public static final int TIMEOUT_MS = 30;
     public static final double WHEEL_BASE = 22.0;
     public static final double TRACK_WIDTH = 12.0;
