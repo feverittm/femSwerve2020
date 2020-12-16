@@ -103,7 +103,7 @@ public class ShooterSubsystem extends SubsystemBase {
    * @return rpm
    */
   public double getNeededBallVelocity(double distance) {
-    return (1 / (((Math.tan(Constants.Values.SHOOTER_RELEASE_ANGLE * (Math.PI / 180))) / (-4.9 * distance))
+    return (1 / ((Math.tan(Constants.Values.SHOOTER_RELEASE_ANGLE * (Math.PI / 180)) / (-4.9 * distance))
         + ((2.49 - Constants.Values.SHOOTER_RELEASE_HEIGHT) / (4.9 * distance * distance))))
         * (1 / Math.cos(Constants.Values.SHOOTER_RELEASE_ANGLE * (Math.PI / 180)));
   }

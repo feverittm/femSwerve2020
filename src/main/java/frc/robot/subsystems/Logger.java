@@ -73,7 +73,7 @@ public class Logger extends SubsystemBase {
               max++;
             }
           } catch (Exception e) {
-            e.printStackTrace();
+            max = 0;
           }
         }
       }
@@ -111,7 +111,8 @@ public class Logger extends SubsystemBase {
         writer.newLine();
         startTime = System.currentTimeMillis();
       } catch (IOException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
+        System.out.println("Could not add header to log file");
       }
     }
   }
@@ -134,7 +135,7 @@ public class Logger extends SubsystemBase {
         writer.write(String.format(logString, ShooterSubsystem.getInstance().getOutput()));
         writer.newLine();
       } catch (IOException e) {
-        e.printStackTrace();
+        System.out.println("Could not append log entry to log file!");
       }
     }
   }
@@ -159,7 +160,7 @@ public class Logger extends SubsystemBase {
       try {
         this.writer.close();
       } catch (IOException e) {
-        e.printStackTrace();
+        ;
       }
     }
   }

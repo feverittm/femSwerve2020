@@ -15,8 +15,6 @@ public final class Constants {
     return Math.abs(a - b) < eps;
   }
 
-
-
   public static class Ports {
 
     public static final int SHOOTER_MOTOR_1 = 8; // CAN
@@ -116,5 +114,24 @@ public final class Constants {
     public static final int LED_COUNT = 35;
     public static final int LED_WIDTH = 7; 
     public static final int LED_ROWS = 5;
+  }
+
+  public static final class ModuleConstants {
+    public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
+    public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
+
+    public static final int kEncoderCPR = 1024;
+    public static final double kWheelDiameterMeters = 0.15;
+    public static final double kDriveEncoderDistancePerPulse =
+        // Assumes the encoders are directly mounted on the wheel shafts
+        (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
+
+    public static final double kTurningEncoderDistancePerPulse =
+        // Assumes the encoders are on a 1:1 reduction with the module shaft.
+        (2 * Math.PI) / (double) kEncoderCPR;
+
+    public static final double kPModuleTurningController = 1;
+
+    public static final double kPModuleDriveController = 1;
   }
 }
